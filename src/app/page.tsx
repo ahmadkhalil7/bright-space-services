@@ -544,7 +544,7 @@ function Testimonials() {
     <Section className="py-16">
       <div className="mx-auto mb-10 max-w-3xl text-center">
         <h3 className="text-3xl font-bold tracking-tight sm:text-4xl">Customers love us</h3>
-        <p className="mt-2 text-gray-600">We treat every property like it's our own.</p>
+        <p className="mt-2 text-gray-600">We treat every property like it’s our own.</p>
       </div>
       <div className="grid gap-6 md:grid-cols-3">
         {items.map((t, i) => (
