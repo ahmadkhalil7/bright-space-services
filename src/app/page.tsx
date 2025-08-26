@@ -9,7 +9,7 @@ import {
   Droplets,
   Paintbrush,
   Brush,
-  Roller,
+  PaintRoller,
   Hammer,
   ShieldCheck,
   Phone,
