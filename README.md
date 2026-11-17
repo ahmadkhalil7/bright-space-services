@@ -6,7 +6,7 @@ Built with Next.js (static export) and Tailwind CSS.
 
 ## Edit business details
 
-Name, phone, email, service areas and the quote-form endpoint live in
+Name, phone, email, service areas and the quote-form address live in
 `src/lib/site.ts`. Change them there and they update across the site.
 
 ## Pages

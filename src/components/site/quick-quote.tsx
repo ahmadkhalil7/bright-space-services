@@ -48,13 +48,23 @@ export function QuickQuote() {
     const data = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
     const service = kind === "office" ? "Office cleaning" : "Home cleaning";
 
-    if (SITE.formspreeEndpoint) {
+    if (SITE.formEndpoint) {
       setStatus("sending");
       try {
-        const res = await fetch(SITE.formspreeEndpoint, {
+        const res = await fetch(SITE.formEndpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ service, ...data }),
+          body: JSON.stringify({
+            _subject: `New ${service.toLowerCase()} quote request: ${data.name} (${data.area})`,
+            _template: "table",
+            _captcha: "false",
+            Service: service,
+            Name: data.name,
+            Phone: data.phone,
+            Area: data.area,
+            Details: data.notes || "(none)",
+            _honey: data._honey ?? "",
+          }),
         });
         setStatus(res.ok ? "sent" : "error");
       } catch {
@@ -169,6 +179,9 @@ export function QuickQuote() {
                 </label>
                 <textarea id="qq-notes" name="notes" rows={2} placeholder={kind === "office" ? "e.g. 2,000 sq ft, 3 nights a week" : "e.g. 2-bedroom condo, every 2 weeks"} className="w-full rounded-xl border border-navy/20 px-4 py-3 outline-none focus:border-navy focus:ring-2 focus:ring-gold" />
               </div>
+
+              {/* Hidden from people; bots that fill it are ignored */}
+              <input type="text" name="_honey" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
 
               {status === "error" && (
                 <p role="alert" className="text-sm text-red-700">

@@ -11,8 +11,9 @@ export const SITE = {
   city: "Burnaby",
   region: "BC",
   serviceAreas: ["Burnaby", "Vancouver", "New Westminster", "Coquitlam"],
-  // Leave empty until the quote form is connected (Step 4).
-  formspreeEndpoint: "",
+  // Quote requests are sent here and forwarded to the email above (FormSubmit, free).
+  // Set to "" to fall back to opening a pre-filled text/email instead.
+  formEndpoint: "https://formsubmit.co/ajax/roshancleaning@gmail.com",
 } as const;
 
 export const telHref = `tel:+1${SITE.phone.replace(/[^0-9]/g, "")}`;
