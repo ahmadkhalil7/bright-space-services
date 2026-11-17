@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   Building2,
   Home,
@@ -15,6 +14,7 @@ import {
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SITE, telHref, mailHref } from "@/lib/site";
+import { QuickQuoteButton } from "@/components/site/quick-quote";
 
 const Section = ({ id, className = "", children }: React.PropsWithChildren<{ id?: string; className?: string }>) => (
   <section id={id} className={`mx-auto w-full max-w-7xl scroll-mt-24 px-4 sm:px-6 lg:px-8 ${className}`}>
@@ -36,6 +36,7 @@ const SERVICES = [
       "Kiosk and office furniture assembly",
     ],
     cta: "Get an office quote",
+    kind: "office" as const,
   },
   {
     icon: Home,
@@ -48,6 +49,7 @@ const SERVICES = [
       "Kitchens, bathrooms, floors and dusting",
     ],
     cta: "Get a home quote",
+    kind: "home" as const,
   },
 ];
 
@@ -103,12 +105,12 @@ export default function HomePage() {
               clean homes, condos and apartments.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="#contact"
+              <QuickQuoteButton
+                kind="office"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-navy px-6 py-3.5 font-semibold text-white hover:bg-navy-dark"
               >
                 Get a free quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
+              </QuickQuoteButton>
               <a
                 href={telHref}
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-6 py-3.5 font-semibold text-navy hover:bg-gold/90"
@@ -162,12 +164,12 @@ export default function HomePage() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="#contact"
+              <QuickQuoteButton
+                kind={s.kind}
                 className="mt-8 inline-flex items-center gap-2 self-start rounded-xl bg-navy px-5 py-3 font-semibold text-white hover:bg-navy-dark"
               >
                 {s.cta} <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
+              </QuickQuoteButton>
             </article>
           ))}
         </div>
@@ -248,9 +250,7 @@ export default function HomePage() {
           <div className="rounded-3xl bg-white p-8 text-navy">
             <CalendarClock className="h-8 w-8 text-gold-dark" aria-hidden="true" />
             <h3 className="mt-4 text-xl font-bold">Request a quote</h3>
-            <p className="mt-2 text-navy/70">
-              The online quote form is coming soon. For now, call or email and include:
-            </p>
+            <p className="mt-2 text-navy/70">Takes less than a minute. Or call or email with:</p>
             <ul className="mt-4 space-y-2 text-sm">
               {["Office or home", "Address or area", "Approximate size", "How often you want cleaning"].map((x) => (
                 <li key={x} className="flex items-center gap-2">
@@ -258,12 +258,20 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-            <a
-              href={`${mailHref}?subject=Cleaning%20quote%20request`}
-              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-navy px-5 py-3.5 font-semibold text-white hover:bg-navy-dark"
-            >
-              <Mail className="h-4 w-4" aria-hidden="true" /> Email us for a quote
-            </a>
+            <div className="mt-6 grid gap-2 sm:grid-cols-2">
+              <QuickQuoteButton
+                kind="office"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-navy px-5 py-3.5 font-semibold text-white hover:bg-navy-dark"
+              >
+                <Building2 className="h-4 w-4" aria-hidden="true" /> Clean my office
+              </QuickQuoteButton>
+              <QuickQuoteButton
+                kind="home"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-5 py-3.5 font-semibold text-navy hover:bg-gold/90"
+              >
+                <Home className="h-4 w-4" aria-hidden="true" /> Clean my home
+              </QuickQuoteButton>
+            </div>
           </div>
         </Section>
       </div>

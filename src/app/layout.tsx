@@ -4,6 +4,7 @@ import "./globals.css";
 import { SITE } from "@/lib/site";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
+import { QuickQuote } from "@/components/site/quick-quote";
 
 const outfit = localFont({
   src: "./fonts/Outfit.ttf",
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-CA">
-      <body className={`${outfit.variable} font-sans antialiased bg-white text-navy`}>
+      <body className={`${outfit.variable} font-sans antialiased bg-white text-navy pb-20 md:pb-0`}>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow"
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         <main id="main">{children}</main>
         <Footer />
+        <QuickQuote />
       </body>
     </html>
   );
