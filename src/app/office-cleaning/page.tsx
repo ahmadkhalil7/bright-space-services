@@ -2,11 +2,16 @@ import type { Metadata } from "next";
 import { Moon, Clock, KeyRound, FileLock2, Building2, Store, Calculator, Briefcase } from "lucide-react";
 import { Section, CheckList, Faq, QuoteButtons, CtaBand, HeroPanel } from "@/components/site/section";
 import { SITE } from "@/lib/site";
+import { JsonLd, serviceJsonLd } from "@/components/site/json-ld";
+
+const DESCRIPTION =
+  "Late-night, weekend and short-notice office cleaning in Burnaby, Vancouver, New Westminster and Coquitlam. Your office cleaned after you close and ready by morning.";
 
 export const metadata: Metadata = {
-  title: `After-Hours Office Cleaning in Burnaby & Vancouver | ${SITE.name}`,
-  description:
-    "Late-night, weekend and short-notice office cleaning in Burnaby, Vancouver, New Westminster and Coquitlam. Your office cleaned after you close and ready by morning.",
+  title: "After-Hours Office Cleaning in Burnaby & Vancouver",
+  description: DESCRIPTION,
+  alternates: { canonical: "office-cleaning/" },
+  openGraph: { title: "After-Hours Office Cleaning in Burnaby & Vancouver", description: DESCRIPTION, url: "office-cleaning/", images: [{ url: "og-image.png", width: 1200, height: 630 }] },
 };
 
 const INCLUDED = [
@@ -71,6 +76,7 @@ const FAQS = [
 export default function OfficeCleaningPage() {
   return (
     <>
+      <JsonLd data={serviceJsonLd("After-hours office cleaning", "/office-cleaning/", DESCRIPTION)} />
       <div className="bg-cream">
         <Section className="grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.4fr_1fr]">
           <div>
