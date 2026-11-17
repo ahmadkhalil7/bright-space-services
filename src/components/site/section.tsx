@@ -85,3 +85,20 @@ export function CtaBand({ kind, heading, text }: { kind: "office" | "home"; head
     </div>
   );
 }
+
+/** Navy summary panel shown beside the heading on service pages. */
+export function HeroPanel({ title, items }: { title: string; items: readonly string[] }) {
+  return (
+    <div className="rounded-3xl bg-navy p-8 text-white shadow-xl sm:p-10">
+      <p className="text-sm font-semibold tracking-wider text-gold">{title}</p>
+      <ul className="mt-6 space-y-5">
+        {items.map((t) => (
+          <li key={t} className="flex gap-4">
+            <span className="mt-2 inline-flex h-3 w-3 shrink-0 rounded-full bg-gold" aria-hidden="true" />
+            <span className="text-lg text-white/90">{t}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}

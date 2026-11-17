@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Moon, Clock, KeyRound, FileLock2, Building2, Store, Calculator, Briefcase } from "lucide-react";
-import { Section, CheckList, Faq, QuoteButtons, CtaBand } from "@/components/site/section";
+import { Section, CheckList, Faq, QuoteButtons, CtaBand, HeroPanel } from "@/components/site/section";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -72,7 +72,8 @@ export default function OfficeCleaningPage() {
   return (
     <>
       <div className="bg-cream">
-        <Section className="py-16 md:py-24">
+        <Section className="grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.4fr_1fr]">
+          <div>
           <p className="text-sm font-semibold tracking-wider text-gold-dark">OFFICE CLEANING</p>
           <h1 className="mt-3 max-w-3xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
             After-Hours Office Cleaning in Burnaby &amp; Vancouver
@@ -84,6 +85,8 @@ export default function OfficeCleaningPage() {
           <div className="mt-8">
             <QuoteButtons kind="office" label="Get an office quote" />
           </div>
+          </div>
+          <HeroPanel title="AT A GLANCE" items={["Evenings, late nights and weekends", "Extra cleans on short notice", "Keys and alarm steps agreed up front", "Burnaby, Vancouver, New Westminster and Coquitlam"]} />
         </Section>
       </div>
 

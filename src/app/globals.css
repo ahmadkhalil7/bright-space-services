@@ -124,3 +124,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Clear, on-brand focus outline for keyboard users only */
+:focus-visible {
+  outline: 3px solid #F2A93B;
+  outline-offset: 2px;
+  border-radius: 6px;
+}

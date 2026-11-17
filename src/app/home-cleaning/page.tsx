@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Repeat, Sparkles, Truck, CalendarClock } from "lucide-react";
-import { Section, CheckList, Faq, QuoteButtons, CtaBand } from "@/components/site/section";
+import { Section, CheckList, Faq, QuoteButtons, CtaBand, HeroPanel } from "@/components/site/section";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -85,7 +85,8 @@ export default function HomeCleaningPage() {
   return (
     <>
       <div className="bg-cream">
-        <Section className="py-16 md:py-24">
+        <Section className="grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.4fr_1fr]">
+          <div>
           <p className="text-sm font-semibold tracking-wider text-gold-dark">HOME CLEANING</p>
           <h1 className="mt-3 max-w-3xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
             Home Cleaning in Burnaby, Vancouver &amp; New Westminster
@@ -97,6 +98,8 @@ export default function HomeCleaningPage() {
           <div className="mt-8">
             <QuoteButtons kind="home" label="Get a home quote" />
           </div>
+          </div>
+          <HeroPanel title="AT A GLANCE" items={["Regular, deep and move-in/out cleans", "Weekdays, evenings or weekends", "We bring our own supplies", "Burnaby, Vancouver, New Westminster and Coquitlam"]} />
         </Section>
       </div>
 

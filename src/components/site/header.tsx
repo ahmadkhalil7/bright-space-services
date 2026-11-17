@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, Phone } from "lucide-react";
 import { Logo } from "./logo";
 import { SITE, telHref } from "@/lib/site";
@@ -15,6 +16,8 @@ const NAV = [
 
 export function Header() {
   const [open, setOpen] = React.useState(false);
+  const pathname = usePathname();
+  const isCurrent = (href: string) => !href.includes("#") && pathname.replace(/\/?$/, "/") === href;
 
   return (
     <header className="sticky top-0 z-50 border-b border-navy/10 bg-white/90 backdrop-blur">
@@ -25,7 +28,12 @@ export function Header() {
 
         <nav aria-label="Main" className="hidden items-center gap-7 md:flex">
           {NAV.map((n) => (
-            <Link key={n.href} href={n.href} className="text-sm font-medium text-navy/80 hover:text-navy">
+            <Link
+              key={n.href}
+              href={n.href}
+              aria-current={isCurrent(n.href) ? "page" : undefined}
+              className="border-b-2 border-transparent py-1 text-sm font-medium text-navy/80 hover:text-navy aria-[current=page]:border-gold aria-[current=page]:font-semibold aria-[current=page]:text-navy"
+            >
               {n.label}
             </Link>
           ))}
@@ -56,7 +64,8 @@ export function Header() {
                 key={n.href}
                 href={n.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-3 font-medium text-navy hover:bg-cream"
+                aria-current={isCurrent(n.href) ? "page" : undefined}
+                className="rounded-lg px-3 py-3 font-medium text-navy hover:bg-cream aria-[current=page]:bg-cream aria-[current=page]:font-semibold"
               >
                 {n.label}
               </Link>
