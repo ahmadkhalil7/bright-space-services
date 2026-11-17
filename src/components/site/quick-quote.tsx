@@ -43,37 +43,10 @@ export function QuickQuote() {
 
   const close = () => dialogRef.current?.close();
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
-    const service = kind === "office" ? "Office cleaning" : "Home cleaning";
+  // Pre-filled text (phones) or email (computers) used as a backup if sending fails.
+  const [backupHref, setBackupHref] = React.useState("");
 
-    if (SITE.formEndpoint) {
-      setStatus("sending");
-      try {
-        const res = await fetch(SITE.formEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({
-            _subject: `New ${service.toLowerCase()} quote request: ${data.name} (${data.area})`,
-            _template: "table",
-            _captcha: "false",
-            Service: service,
-            Name: data.name,
-            Phone: data.phone,
-            Area: data.area,
-            Details: data.notes || "(none)",
-            _honey: data._honey ?? "",
-          }),
-        });
-        setStatus(res.ok ? "sent" : "error");
-      } catch {
-        setStatus("error");
-      }
-      return;
-    }
-
-    // Until the form service is connected: open a pre-filled text (phones) or email (computers).
+  function buildBackupHref(service: string, data: Record<string, string>) {
     const lines = [
       `Hi, I'd like a quote for ${service.toLowerCase()}.`,
       `Name: ${data.name}`,
@@ -83,10 +56,52 @@ export function QuickQuote() {
     ].filter(Boolean);
     const body = encodeURIComponent(lines.join("\n"));
     const isPhone = window.matchMedia("(pointer: coarse)").matches;
-    window.location.href = isPhone
+    return isPhone
       ? `sms:+1${SITE.phone.replace(/\D/g, "")}?&body=${body}`
       : `mailto:${SITE.email}?subject=${encodeURIComponent(`${service} quote request`)}&body=${body}`;
-    setStatus("sent");
+  }
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+    const service = kind === "office" ? "Office cleaning" : "Home cleaning";
+    const backup = buildBackupHref(service, data);
+    setBackupHref(backup);
+
+    if (!SITE.formEndpoint) {
+      window.location.href = backup;
+      setStatus("sent");
+      return;
+    }
+
+    setStatus("sending");
+    // Never leave a visitor waiting: give up after 12 seconds and offer the backup.
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), 12000);
+    try {
+      const res = await fetch(SITE.formEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        signal: controller.signal,
+        body: JSON.stringify({
+          _subject: `New ${service.toLowerCase()} quote request: ${data.name} (${data.area})`,
+          _template: "table",
+          _captcha: "false",
+          Service: service,
+          Name: data.name,
+          Phone: data.phone,
+          Area: data.area,
+          Details: data.notes || "(none)",
+          _honey: data._honey ?? "",
+        }),
+      });
+      const json = (await res.json().catch(() => ({}))) as { success?: string | boolean };
+      setStatus(res.ok && String(json.success) !== "false" ? "sent" : "error");
+    } catch {
+      setStatus("error");
+    } finally {
+      window.clearTimeout(timer);
+    }
   }
 
   const pill =
@@ -184,9 +199,17 @@ export function QuickQuote() {
               <input type="text" name="_honey" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
 
               {status === "error" && (
-                <p role="alert" className="text-sm text-red-700">
-                  Something went wrong. Please call {SITE.phone} instead.
-                </p>
+                <div role="alert" className="rounded-xl bg-accent p-4 text-sm">
+                  <p className="font-semibold">That didn&apos;t go through. Send it another way in one tap:</p>
+                  <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                    <a href={backupHref} className="inline-flex items-center justify-center rounded-lg bg-navy px-4 py-2.5 font-semibold text-white">
+                      Send by text / email
+                    </a>
+                    <a href={`tel:+1${SITE.phone.replace(/\D/g, "")}`} className="inline-flex items-center justify-center rounded-lg border border-navy/20 bg-white px-4 py-2.5 font-semibold">
+                      Call {SITE.phone}
+                    </a>
+                  </div>
+                </div>
               )}
 
               <button
