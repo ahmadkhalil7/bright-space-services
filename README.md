@@ -32,5 +32,4 @@ npm run dev
 ```
 
 This builds the site and pushes it to the `gh-pages` branch, which GitHub
-Pages serves at https://ahmadkhalil7.github.io/bright-space-services/.
-When the site moves to its own domain, run it with `BASE_PATH=""`.
+Pages serves at https://roshancleaning.ca (DNS at Namecheap points to GitHub Pages).

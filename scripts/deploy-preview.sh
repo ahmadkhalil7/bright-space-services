@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 # Builds the static site and publishes it to the gh-pages branch,
-# which GitHub Pages serves at https://ahmadkhalil7.github.io/bright-space-services/
+# which GitHub Pages serves at https://roshancleaning.ca
+# (CNAME file below tells GitHub Pages to use the custom domain).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-BASE_PATH="${BASE_PATH-/bright-space-services}" npm run build
+BASE_PATH="${BASE_PATH-}" SITE_URL="${SITE_URL-https://roshancleaning.ca}" npm run build
 touch out/.nojekyll   # let GitHub Pages serve the _next/ folder
+echo "roshancleaning.ca" > out/CNAME
 
 SRC_SHA="$(git rev-parse --short HEAD)"
 TMP="$(mktemp -d)"
