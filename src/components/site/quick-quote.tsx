@@ -165,7 +165,7 @@ export function QuickQuote() {
               </div>
               <div>
                 <label htmlFor="qq-notes" className="mb-1 block text-sm font-medium">
-                  Anything else? <span className="font-normal text-navy/60">(optional)</span>
+                  Anything else? <span className="font-normal text-navy/70">(optional)</span>
                 </label>
                 <textarea id="qq-notes" name="notes" rows={2} placeholder={kind === "office" ? "e.g. 2,000 sq ft, 3 nights a week" : "e.g. 2-bedroom condo, every 2 weeks"} className="w-full rounded-xl border border-navy/20 px-4 py-3 outline-none focus:border-navy focus:ring-2 focus:ring-gold" />
               </div>
@@ -183,7 +183,7 @@ export function QuickQuote() {
               >
                 <Send className="h-5 w-5" aria-hidden="true" /> {status === "sending" ? "Sending…" : "Send"}
               </button>
-              <p className="text-center text-sm text-navy/60">Free, no obligation. We&apos;ll get back to you quickly.</p>
+              <p className="text-center text-sm text-navy/70">Free, no obligation. We&apos;ll get back to you quickly.</p>
             </form>
           )}
         </div>

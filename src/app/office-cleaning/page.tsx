@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 };
 
 const INCLUDED = [
-  "Desks and workstations dusted and wiped (we clean around papers and files, never move them)",
+  "Desks and workstations dusted and wiped, cleaning around papers and files rather than moving them",
   "Kitchen and break room: counters, sink, microwave and appliance fronts",
-  "Washrooms cleaned and sanitized; supplies restocked if you provide them",
+  "Washrooms cleaned and sanitized; we can also restock paper and soap",
   "Floors vacuumed and mopped",
   "Garbage and recycling emptied",
   "Entrance, reception and glass doors",
@@ -38,7 +38,7 @@ const HOW = [
   { icon: Moon, title: "After you close", desc: "We clean evenings, late nights or weekends, never during your working hours." },
   { icon: Clock, title: "Short notice", desc: "Need an extra clean this week? Call and we'll tell you how soon we can be there." },
   { icon: KeyRound, title: "Agreed access", desc: "Keys, alarm codes and lock-up steps are agreed with you before the first visit." },
-  { icon: FileLock2, title: "Discreet with your files", desc: "We clean around paperwork and screens and leave confidential material untouched." },
+  { icon: FileLock2, title: "Discreet with your files", desc: "We clean around paperwork and screens, and leave confidential material where it is." },
 ];
 
 const FAQS = [
