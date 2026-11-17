@@ -12,15 +12,10 @@ import {
   MapPin,
   ArrowRight,
 } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import Link from "next/link";
+import { Section, Faq } from "@/components/site/section";
 import { SITE, telHref, mailHref } from "@/lib/site";
 import { QuickQuoteButton } from "@/components/site/quick-quote";
-
-const Section = ({ id, className = "", children }: React.PropsWithChildren<{ id?: string; className?: string }>) => (
-  <section id={id} className={`mx-auto w-full max-w-7xl scroll-mt-24 px-4 sm:px-6 lg:px-8 ${className}`}>
-    {children}
-  </section>
-);
 
 const SERVICES = [
   {
@@ -37,6 +32,7 @@ const SERVICES = [
     ],
     cta: "Get an office quote",
     kind: "office" as const,
+    href: "/office-cleaning/",
   },
   {
     icon: Home,
@@ -50,6 +46,7 @@ const SERVICES = [
     ],
     cta: "Get a home quote",
     kind: "home" as const,
+    href: "/home-cleaning/",
   },
 ];
 
@@ -164,12 +161,17 @@ export default function HomePage() {
                   </li>
                 ))}
               </ul>
-              <QuickQuoteButton
-                kind={s.kind}
-                className="mt-8 inline-flex items-center gap-2 self-start rounded-xl bg-navy px-5 py-3 font-semibold text-white hover:bg-navy-dark"
-              >
-                {s.cta} <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </QuickQuoteButton>
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <QuickQuoteButton
+                  kind={s.kind}
+                  className="inline-flex items-center gap-2 rounded-xl bg-navy px-5 py-3 font-semibold text-white hover:bg-navy-dark"
+                >
+                  {s.cta} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </QuickQuoteButton>
+                <Link href={s.href} className="font-semibold text-navy underline decoration-gold decoration-2 underline-offset-4 hover:text-navy-dark">
+                  Learn more<span className="sr-only"> about {s.title.toLowerCase()}</span>
+                </Link>
+              </div>
             </article>
           ))}
         </div>
@@ -208,17 +210,7 @@ export default function HomePage() {
 
       {/* FAQ */}
       <Section id="faq" className="pb-20">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="text-center text-3xl font-bold tracking-tight sm:text-4xl">Frequently asked questions</h2>
-          <Accordion type="single" collapsible className="mt-8">
-            {FAQS.map((f, i) => (
-              <AccordionItem key={f.q} value={`faq-${i}`}>
-                <AccordionTrigger className="text-left text-base font-semibold">{f.q}</AccordionTrigger>
-                <AccordionContent className="text-navy/75">{f.a}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
+        <Faq items={FAQS} />
       </Section>
 
       {/* Contact */}

@@ -7,8 +7,8 @@ import { Logo } from "./logo";
 import { SITE, telHref } from "@/lib/site";
 
 const NAV = [
-  { href: "/#services", label: "Services" },
-  { href: "/#why-us", label: "Why Us" },
+  { href: "/office-cleaning/", label: "Office Cleaning" },
+  { href: "/home-cleaning/", label: "Home Cleaning" },
   { href: "/#faq", label: "FAQ" },
   { href: "/#contact", label: "Contact" },
 ];

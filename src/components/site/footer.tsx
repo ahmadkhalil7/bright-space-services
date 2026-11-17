@@ -18,9 +18,9 @@ export function Footer() {
         <div>
           <h2 className="text-sm font-semibold tracking-wider text-gold">SERVICES</h2>
           <ul className="mt-4 space-y-2 text-sm text-white/80">
-            <li><Link href="/#services" className="hover:text-white">After-hours office cleaning</Link></li>
-            <li><Link href="/#services" className="hover:text-white">Home cleaning</Link></li>
-            <li><Link href="/#services" className="hover:text-white">Deep &amp; move-in/out cleaning</Link></li>
+            <li><Link href="/office-cleaning/" className="hover:text-white">After-hours office cleaning</Link></li>
+            <li><Link href="/home-cleaning/" className="hover:text-white">Home cleaning</Link></li>
+            <li><Link href="/home-cleaning/" className="hover:text-white">Deep &amp; move-in/out cleaning</Link></li>
           </ul>
         </div>
 
